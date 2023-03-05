@@ -78,6 +78,10 @@
     <IncludePath>/usr/local/include/opencv4</IncludePath>
     <LibraryPath>/usr/local/lib</LibraryPath>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <IncludePath>/usr/local/include/opencv4</IncludePath>
+    <LibraryPath>/usr/local/lib</LibraryPath>
+  </PropertyGroup>
   <ItemGroup>
     <ClCompile Include="ChatGPTREST.cpp" />
     <ClCompile Include="main.cpp" />
@@ -87,8 +91,11 @@
   </ItemGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <Link>
-      <LibraryDependencies>boost_system;pthread;crypto;ssl;%(LibraryDependencies)</LibraryDependencies>
+      <LibraryDependencies>boost_system;pthread;crypto;ssl;cpprest;opencv_core;opencv_datasets;opencv_dnn;opencv_hfs;opencv_imgproc;opencv_line_descriptor;opencv_ml;opencv_highgui;opencv_imgcodecs;%(LibraryDependencies)</LibraryDependencies>
     </Link>
+    <ClCompile>
+      <CppLanguageStandard>c++17</CppLanguageStandard>
+    </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">
     <Link>
