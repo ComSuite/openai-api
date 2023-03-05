@@ -1,11 +1,6 @@
 #include "ChatGPTREST.h"
 #include <opencv2/highgui.hpp>
 
-//std::wstring org_id() const
-//{
-//    std::wstring ret = std::format(L"OpenAI-Organization: {}", organization_id.c_str());
-//    return ret;
-//}
 using namespace cs;
 
 int main(int argc, char** argv)
@@ -19,9 +14,10 @@ int main(int argc, char** argv)
         return 0;
     }
 
-    rest->set_api_key("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");
+    rest->set_api_key(std::getenv("OPENAI_API_KEY"));
+    );
     rest->set_model("text-davinci-003");
-    rest->set_org_id("org-0wG2sCPzC10T6rW2uXprsrDK");
+    rest->set_org_id(std::getenv("OPENAI_ORGANIZATION_ID"));
     rest->connect();
 
     //std::list<Model> models;
