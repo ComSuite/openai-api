@@ -15,7 +15,6 @@ int main(int argc, char** argv)
     }
 
     rest->set_api_key(std::getenv("OPENAI_API_KEY"));
-    );
     rest->set_model("text-davinci-003");
     rest->set_org_id(std::getenv("OPENAI_ORGANIZATION_ID"));
     rest->connect();
