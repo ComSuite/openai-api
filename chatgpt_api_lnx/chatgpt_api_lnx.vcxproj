@@ -83,11 +83,11 @@
     <LibraryPath>/usr/local/lib</LibraryPath>
   </PropertyGroup>
   <ItemGroup>
-    <ClCompile Include="ChatGPTREST.cpp" />
+    <ClCompile Include="chatgptrest_api.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="ChatGPTREST.h" />
+    <ClInclude Include="chatgptrest_api.h" />
   </ItemGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <Link>

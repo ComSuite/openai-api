@@ -20,7 +20,7 @@ namespace cs
 		std::string owned_by = "";
 	};
 
-	class ChatGPTREST
+	class chatgptrest
 	{
 	public:
 		bool connect();

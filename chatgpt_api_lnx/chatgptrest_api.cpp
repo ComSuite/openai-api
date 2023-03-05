@@ -1,4 +1,4 @@
-#include "ChatGPTREST.h"
+#include "chatgptrest_api.h"
 #include <cstdio>
 #include <iostream>
 #include <string>
@@ -12,7 +12,7 @@ using namespace web;
 using namespace web::http;
 using namespace web::http::client;
 
-bool cs::ChatGPTREST::connect()
+bool cs::chatgptrest::connect()
 {
     try {
         client = make_unique<http_client>(uri(openai_endpoint.c_str()));
@@ -23,7 +23,7 @@ bool cs::ChatGPTREST::connect()
     }
 }
 
-void cs::ChatGPTREST::prepare_request(http_request& request)
+void cs::chatgptrest::prepare_request(http_request& request)
 {
     std::string wbar = ("Bearer ");
     wbar = wbar + utility::conversions::to_utf8string(api_key);
@@ -32,7 +32,7 @@ void cs::ChatGPTREST::prepare_request(http_request& request)
     request.headers().set_content_type(U("application/json"));
 }
 
-std::string cs::ChatGPTREST::get_text_response(std::string_view prompt)
+std::string cs::chatgptrest::get_text_response(std::string_view prompt)
 {
     if (client == nullptr)
         return "";
@@ -61,7 +61,7 @@ std::string cs::ChatGPTREST::get_text_response(std::string_view prompt)
     }
 }
 
-bool cs::ChatGPTREST::list_models(std::list<Model>& models)
+bool cs::chatgptrest::list_models(std::list<Model>& models)
 {
     if (client == nullptr)
         return false;
@@ -91,7 +91,7 @@ bool cs::ChatGPTREST::list_models(std::list<Model>& models)
     return false;
 }
 
-bool cs::ChatGPTREST::get_image(std::string_view prompt, cv::Mat& image)
+bool cs::chatgptrest::get_image(std::string_view prompt, cv::Mat& image)
 {
     if (client == nullptr)
         return false;
@@ -121,7 +121,7 @@ bool cs::ChatGPTREST::get_image(std::string_view prompt, cv::Mat& image)
     return ret;
 }
 
-bool cs::ChatGPTREST::load_image(std::string_view url, cv::Mat& image)
+bool cs::chatgptrest::load_image(std::string_view url, cv::Mat& image)
 {
     http_client cli(static_cast<string>(url));
     http_response response = cli.request(methods::GET).get();

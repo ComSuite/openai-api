@@ -1,4 +1,4 @@
-#include "ChatGPTREST.h"
+#include "chatgptrest_api.h"
 #include <opencv2/highgui.hpp>
 
 using namespace cs;
@@ -9,7 +9,7 @@ int main(int argc, char** argv)
         return 1;
     }
 
-    auto rest = std::make_unique<ChatGPTREST>();
+    auto rest = std::make_unique<chatgptrest>();
     if (rest == nullptr) {
         return 0;
     }
@@ -30,7 +30,7 @@ int main(int argc, char** argv)
     rest->get_image(prompt, img);
     //cv::imwrite("test.png", img);
     cv::imshow("DALL-E", img);
-    int k = cv::waitKey(0);
+    cv::waitKey(0);
 
     return 0;
 }

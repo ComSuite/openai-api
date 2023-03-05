@@ -15,15 +15,15 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\chatgpt_api_lnx\ChatGPTREST.cpp">
+    <ClCompile Include="..\chatgpt_api_lnx\main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\chatgpt_api_lnx\main.cpp">
+    <ClCompile Include="..\chatgpt_api_lnx\chatgptrest_api.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\chatgpt_api_lnx\ChatGPTREST.h">
+    <ClInclude Include="..\chatgpt_api_lnx\chatgptrest_api.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
