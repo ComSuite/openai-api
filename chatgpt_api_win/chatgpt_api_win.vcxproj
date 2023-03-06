@@ -19,11 +19,11 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\chatgpt_api_lnx\ChatGPTREST.cpp" />
+    <ClCompile Include="..\chatgpt_api_lnx\chatgptrest_api.cpp" />
     <ClCompile Include="..\chatgpt_api_lnx\main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\chatgpt_api_lnx\ChatGPTREST.h" />
+    <ClInclude Include="..\chatgpt_api_lnx\chatgptrest_api.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
@@ -78,8 +78,8 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <ExternalIncludePath>\Projects\vcpkg\packages\cpprestsdk_x64-windows\include;\opencv\include;$(ExternalIncludePath)</ExternalIncludePath>
-    <LibraryPath>\opencv\lib;\Projects\vcpkg\packages\cpprestsdk_x64-windows\lib;$(LibraryPath)</LibraryPath>
+    <ExternalIncludePath>\opencv\include;$(ExternalIncludePath)</ExternalIncludePath>
+    <LibraryPath>\opencv\lib;$(CUDA_PATH)\lib\x64;$(CPPRESTSDK_64_PATH)\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -113,15 +113,16 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>_DEBUG;_CONSOLE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_DEBUG;_CONSOLE;_CRT_SECURE_NO_WARNINGS;_SILENCE_ALL_CXX17_DEPRECATION_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <LanguageStandard>stdcpp17</LanguageStandard>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>boost_system;pthread;crypto;ssl;cpprest;opencv_core;opencv_datasets;opencv_dnn;opencv_hfs;opencv_imgproc;opencv_line_descriptor;opencv_ml;opencv_highgui;opencv_imgcodecs;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>cpprest_2_10.lib;zlibd.lib;cudart.lib;cuda.lib;opengl32.lib;OpenCL.lib;aded.lib;nppc.lib;nppial.lib;nppicc.lib;nppidei.lib;nppif.lib;nppig.lib;nppim.lib;nppist.lib;nppisu.lib;nppitc.lib;npps.lib;nvrtc.lib;IlmImfd.lib;ippicvmt.lib;ippiwd.lib;ittnotifyd.lib;libjpeg-turbod.lib;libopenjp2d.lib;libpngd.lib;libprotobufd.lib;libtiffd.lib;libwebpd.lib;opencv_core455d.lib;opencv_imgproc455d.lib;opencv_highgui455d.lib;opencv_features2d455d.lib;opencv_objdetect455d.lib;opencv_video455d.lib;opencv_flann455d.lib;opencv_videoio455d.lib;opencv_calib3d455d.lib;opencv_imgcodecs455d.lib;opencv_photo455d.lib;opencv_tracking455d.lib;opencv_ml455d.lib;opencv_optflow455d.lib;opencv_superres455d.lib;opencv_surface_matching455d.lib;opencv_text455d.lib;opencv_videostab455d.lib;opencv_xfeatures2d455d.lib;opencv_ximgproc455d.lib;opencv_dnn455d.lib;opencv_cudabgsegm455d.lib;opencv_cudafeatures2d455d.lib;opencv_cudafilters455d.lib;opencv_cudaimgproc455d.lib;opencv_cudalegacy455d.lib;opencv_cudaobjdetect455d.lib;opencv_cudaoptflow455d.lib;opencv_cudastereo455d.lib;opencv_cudawarping455d.lib;opencv_cudev455d.lib;opencv_cudaarithm455d.lib;opencv_cudacodec455d.lib;Ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">

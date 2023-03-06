@@ -15,9 +15,15 @@ namespace cs
 	class Model
 	{
 	public:
+#if defined _WIN32 || defined _WIN64
+		std::wstring id = L"";
+		std::wstring object = L"";
+		std::wstring owned_by = L"";
+#else
 		std::string id = "";
 		std::string object = "";
 		std::string owned_by = "";
+#endif
 	};
 
 	class chatgptrest
@@ -46,10 +52,14 @@ namespace cs
 		std::string api_key = "";
 		std::string org_id = "";
 		uint32_t max_tokens = 4000;
-		double temperature = 0; //form 0 to 2
-		double frequency_penalty = 0.2; //fromn -2 to 2
-		double presence_penalty = 0; //fromn -2 to 2
+		double temperature = 0; //from 0 to 2
+		double frequency_penalty = 0.2; //from -2 to 2
+		double presence_penalty = 0; //from -2 to 2
 
-		const std::string openai_endpoint = "https://api.openai.com";
+#if defined _WIN32 || defined _WIN64
+		std::wstring openai_endpoint = L"https://api.openai.com";
+#else
+		std::string openai_endpoint = "https://api.openai.com";
+#endif
 	};
 }
