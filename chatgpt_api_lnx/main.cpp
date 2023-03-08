@@ -25,7 +25,7 @@ int main(int argc, char** argv)
     std::list<Model> models;
     rest->list_models(models);
     for (auto model : models) {
-        std::cout << model.id << std::endl << model.object << std::endl << model.owned_by << std::endl << std::endl;
+        //std::cout << model.id << std::endl << model.object << std::endl << model.owned_by << std::endl << std::endl;
     }
 
     cv::Mat img;

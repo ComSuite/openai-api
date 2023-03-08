@@ -23,7 +23,7 @@ bool cs::chatgptrest::connect()
     }
 }
 
-void cs::chatgptrest::prepare_request(http_request& request)
+void cs::chatgptrest::prepare_request(http_request& request) const
 {
 #if defined _WIN32 || defined _WIN64
     std::wstring wbar = (U("Bearer "));
@@ -90,14 +90,14 @@ bool cs::chatgptrest::list_models(std::list<Model>& models)
     if (response.status_code() == status_codes::OK) {
         json::value response_body = response.extract_json().get();
         auto _models = response_body.at(U("data")).as_array();
-        for (size_t i = 0; i < _models.size(); ++i) {
-            Model model;
+        for (auto& _model : _models) {
+            Model mod;
 
-            model.id = _models[i].at(U("id")).as_string();
-            model.object = _models[i].at(U("object")).as_string();
-            model.owned_by = _models[i].at(U("owned_by")).as_string();
+            mod.id = _model.at(U("id")).as_string();
+            mod.object = _model.at(U("object")).as_string();
+            mod.owned_by = _model.at(U("owned_by")).as_string();
 
-            models.emplace_back(model);
+            models.emplace_back(mod);
         }
 
         return true;
