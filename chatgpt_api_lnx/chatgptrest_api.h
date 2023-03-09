@@ -44,7 +44,7 @@ namespace cs
 		bool get_image(std::string_view promptm, cv::Mat& image);
 	private:
 		void prepare_request(web::http::http_request& request) const;
-		bool load_image(std::string_view url, cv::Mat& image);
+		bool load_image(std::string_view url, cv::Mat& image) const;
 
 		std::unique_ptr<web::http::client::http_client> client = nullptr;
 

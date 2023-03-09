@@ -1,3 +1,4 @@
+#include <iostream>
 #include "chatgptrest_api.h"
 #include <opencv2/highgui.hpp>
 #if !defined _WIN32 && !defined _WIN64
@@ -23,9 +24,14 @@ int main(int argc, char** argv)
     rest->connect();
 
     std::list<Model> models;
-    rest->list_models(models);
-    for (auto model : models) {
-        //std::cout << model.id << std::endl << model.object << std::endl << model.owned_by << std::endl << std::endl;
+    if (rest->list_models(models)) {
+        for (auto& model : models) {
+#if defined _WIN32 || defined _WIN64
+            std::wcout << model.id << std::endl << model.object << std::endl << model.owned_by << std::endl << std::endl;
+#else
+            std::cout << model.id << std::endl << model.object << std::endl << model.owned_by << std::endl << std::endl;
+#endif
+        }
     }
 
     cv::Mat img;

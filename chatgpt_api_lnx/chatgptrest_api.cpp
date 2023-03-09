@@ -15,7 +15,7 @@ using namespace web::http::client;
 bool cs::chatgptrest::connect()
 {
     try {
-        client = make_unique<http_client>(web::uri(static_cast<const utility::char_t*>(openai_endpoint.c_str())));
+        client = make_unique<http_client>(web::uri(openai_endpoint.c_str()));
         return true;
     }
     catch (...) {
@@ -27,7 +27,7 @@ void cs::chatgptrest::prepare_request(http_request& request) const
 {
 #if defined _WIN32 || defined _WIN64
     std::wstring wbar = (U("Bearer "));
-    wbar = wbar + utility::conversions::to_utf16string(api_key);
+    wbar = wbar.append(utility::conversions::to_utf16string(api_key));
     request.headers().add(U("Authorization"), wbar);
     request.headers().add(U("OpenAI-Organization"), utility::conversions::to_utf16string(org_id));
     request.headers().set_content_type(U("application/json"));
@@ -86,7 +86,6 @@ bool cs::chatgptrest::list_models(std::list<Model>& models)
     request.set_request_uri(web::uri(U("/v1/models")));
 
     http_response response = client->request(request).get();
-
     if (response.status_code() == status_codes::OK) {
         json::value response_body = response.extract_json().get();
         auto _models = response_body.at(U("data")).as_array();
@@ -149,7 +148,7 @@ bool cs::chatgptrest::get_image(std::string_view prompt, cv::Mat& image)
     return ret;
 }
 
-bool cs::chatgptrest::load_image(std::string_view url, cv::Mat& image)
+bool cs::chatgptrest::load_image(std::string_view url, cv::Mat& image) const
 {
 #if defined _WIN32 || defined _WIN64
     std::wstring wurl(url.begin(), url.end());
