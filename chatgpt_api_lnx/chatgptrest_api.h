@@ -1,3 +1,9 @@
+/***
+ * Copyright (C) Alex Epstine (alex@comsuite.co.il). All rights reserved.
+ * Licensed under the MIT license. See LICENSE.txt file in the project root for full license information.
+ * For the latest on this and related APIs, please see: https://github.com/ComSuite/openai-api
+ ****/
+
 #pragma once
 
 #include <string>
@@ -39,9 +45,10 @@ namespace cs
 		void set_frequency_penalty(const double freq) { frequency_penalty = freq; };
 		void set_presence_penalty(const double pres) { presence_penalty = pres; };
 
-		std::string get_text(std::string_view prompt);
+		bool get_text(std::string_view prompt, std::string& response);
 		bool list_models(std::list<Model>& models);
 		bool get_image(std::string_view promptm, cv::Mat& image);
+		bool chat(std::string_view role, std::string_view content, std::string& response);
 	private:
 		void prepare_request(web::http::http_request& request) const;
 		bool load_image(std::string_view url, cv::Mat& image) const;

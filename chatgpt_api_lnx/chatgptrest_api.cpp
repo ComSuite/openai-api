@@ -1,3 +1,9 @@
+/***
+ * Copyright (C) Alex Epstine (alex@comsuite.co.il). All rights reserved.
+ * Licensed under the MIT license. See LICENSE.txt file in the project root for full license information.
+ * For the latest on this and related APIs, please see: https://github.com/ComSuite/openai-api
+ ****/
+
 #include "chatgptrest_api.h"
 #include <cstdio>
 #include <iostream>
@@ -40,13 +46,19 @@ void cs::chatgptrest::prepare_request(http_request& request) const
 #endif
 }
 
-std::string cs::chatgptrest::get_text(std::string_view prompt)
+bool cs::chatgptrest::get_text(std::string_view prompt, std::string& response)
 {
     if (client == nullptr)
-        return "";
+        return false;
+
+    bool ret = false;
 
     json::value root;
     root[U("model")] = json::value::string(U("text-davinci-003"));
+    root[U("temperature")] = temperature;
+    root[U("max_tokens")] = max_tokens;
+    root[U("frequency_penalty")] = frequency_penalty;
+    root[U("presence_penalty")] = presence_penalty;
 
 #if defined _WIN32 || defined _WIN64
     std::wstring wprompt(prompt.begin(), prompt.end());
@@ -55,25 +67,25 @@ std::string cs::chatgptrest::get_text(std::string_view prompt)
     root[U("prompt")] = json::value::string(static_cast<std::string>(prompt));
 #endif
 
-    root[U("temperature")] = temperature;
-    root[U("max_tokens")] = max_tokens;
-    root[U("frequency_penalty")] = frequency_penalty;
-    root[U("presence_penalty")] = presence_penalty;
-
     http_request request(methods::POST);
     prepare_request(request);
     request.set_body(root.serialize().c_str());
     request.set_request_uri(web::uri(U("/v1/completions")));
 
-    http_response response = client->request(request).get();
-
-    if (response.status_code() == status_codes::OK) {
-        json::value response_body = response.extract_json().get();
-        return utility::conversions::to_utf8string(response_body[U("choices")][0][U("text")].as_string());
+    http_response resp = client->request(request).get();
+    if (resp.status_code() == status_codes::OK) {
+        json::value response_body = resp.extract_json().get();
+        try {
+            response = utility::conversions::to_utf8string(response_body[U("choices")][0][U("text")].as_string());
+            ret = true;
+        }
+        catch (...) {}
     }
     else {
-        return utility::conversions::to_utf8string(response.extract_string().get());
+        response = utility::conversions::to_utf8string(resp.extract_string().get());
     }
+
+    return ret;
 }
 
 bool cs::chatgptrest::list_models(std::list<Model>& models)
@@ -122,6 +134,7 @@ bool cs::chatgptrest::get_image(std::string_view prompt, cv::Mat& image)
     root[U("prompt")] = json::value::string(static_cast<string>(prompt));
     root[U("size")] = json::value::string(static_cast<string>("256x256"));
 #endif
+
     http_request request(methods::POST);
     prepare_request(request);
     request.set_body(root.serialize().c_str());
@@ -168,4 +181,41 @@ bool cs::chatgptrest::load_image(std::string_view url, cv::Mat& image) const
     }
 
     return false;
+}
+
+bool cs::chatgptrest::chat(std::string_view role, std::string_view content, std::string& response)
+{
+    if (client == nullptr)
+        return false;
+
+    bool ret = false;
+
+    json::value messages;
+    messages[0][U("role")] = json::value::string(static_cast<string>(role));
+    messages[0][U("content")] = json::value::string(static_cast<string>(content));
+
+    json::value root;
+    root[U("n")] = 1;
+    root[U("model")] = json::value::string(U("gpt-3.5-turbo"));
+    root[U("temperature")] = temperature;
+    root[U("max_tokens")] = max_tokens;
+    root[U("frequency_penalty")] = frequency_penalty;
+    root[U("presence_penalty")] = presence_penalty;
+    root[U("messages")] = messages;
+
+    http_request request(methods::POST);
+    prepare_request(request);
+    request.set_body(root.serialize().c_str());
+    request.set_request_uri(web::uri(U("/v1/chat/completions")));
+
+    http_response resp = client->request(request).get();
+    if (resp.status_code() == status_codes::OK) {
+        json::value response_body = resp.extract_json().get();
+
+        std::cout << response_body.to_string() << endl;
+
+        ret = true;
+    }
+
+    return ret;
 }

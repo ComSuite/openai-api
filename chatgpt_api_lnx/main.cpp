@@ -15,13 +15,14 @@ int main(int argc, char** argv)
 
     auto rest = std::make_unique<chatgptrest>();
     if (rest == nullptr) {
-        return 0;
+        return 1;
     }
 
     rest->set_api_key(std::getenv("OPENAI_API_KEY"));
-    rest->set_model("text-davinci-003");
     rest->set_org_id(std::getenv("OPENAI_ORGANIZATION_ID"));
-    rest->connect();
+    if (!rest->connect()) {
+        return 1;
+    }
 
     std::list<Model> models;
     if (rest->list_models(models)) {
@@ -34,13 +35,23 @@ int main(int argc, char** argv)
         }
     }
 
-    cv::Mat img;
-    std::string prompt = argv[1];
-    rest->get_image(prompt, img);
+    std::string response = "";
+
+    rest->set_model("text-davinci-003");
+    rest->get_text(argv[1], response);
+    std::cout << response << std::endl;
+
+    rest->set_model("gpt-3.5-turbo");
+    rest->chat("user", argv[1], response);
+    std::cout << response << std::endl;
+
+    //cv::Mat img;
+    //std::string prompt = argv[1];
+    //rest->get_image(prompt, img);
     
     //cv::imwrite("test.png", img);
-    cv::imshow("DALL-E", img);
-    cv::waitKey(0);
+    //cv::imshow("DALL-E", img);
+    //cv::waitKey(0);
 
     return 0;
 }
