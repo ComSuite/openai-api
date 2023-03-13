@@ -39,7 +39,7 @@ namespace cs
 		void set_frequency_penalty(const double freq) { frequency_penalty = freq; };
 		void set_presence_penalty(const double pres) { presence_penalty = pres; };
 
-		std::string get_text_response(std::string_view prompt);
+		std::string get_text(std::string_view prompt);
 		bool list_models(std::list<Model>& models);
 		bool get_image(std::string_view promptm, cv::Mat& image);
 	private:

@@ -40,7 +40,7 @@ void cs::chatgptrest::prepare_request(http_request& request) const
 #endif
 }
 
-std::string cs::chatgptrest::get_text_response(std::string_view prompt)
+std::string cs::chatgptrest::get_text(std::string_view prompt)
 {
     if (client == nullptr)
         return "";
