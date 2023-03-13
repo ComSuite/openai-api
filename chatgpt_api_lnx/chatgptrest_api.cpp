@@ -54,7 +54,7 @@ bool cs::chatgptrest::get_text(std::string_view prompt, std::string& response)
     bool ret = false;
 
     json::value root;
-    root[U("model")] = json::value::string(U("text-davinci-003"));
+    root[U("model")] = json::value::string(model);
     root[U("temperature")] = temperature;
     root[U("max_tokens")] = max_tokens;
     root[U("frequency_penalty")] = frequency_penalty;
@@ -196,7 +196,7 @@ bool cs::chatgptrest::chat(std::string_view role, std::string_view content, std:
 
     json::value root;
     root[U("n")] = 1;
-    root[U("model")] = json::value::string(U("gpt-3.5-turbo"));
+    root[U("model")] = json::value::string(model);
     root[U("temperature")] = temperature;
     root[U("max_tokens")] = max_tokens;
     root[U("frequency_penalty")] = frequency_penalty;
@@ -211,8 +211,11 @@ bool cs::chatgptrest::chat(std::string_view role, std::string_view content, std:
     http_response resp = client->request(request).get();
     if (resp.status_code() == status_codes::OK) {
         json::value response_body = resp.extract_json().get();
-
-        std::cout << response_body.to_string() << endl;
+        try {
+            response = utility::conversions::to_utf8string(response_body[U("choices")][0][U("message")][U("content")].as_string());
+            ret = true;
+        }
+        catch (...) {}
 
         ret = true;
     }

@@ -24,6 +24,7 @@ int main(int argc, char** argv)
         return 1;
     }
 
+/*
     std::list<Model> models;
     if (rest->list_models(models)) {
         for (auto& model : models) {
@@ -34,6 +35,7 @@ int main(int argc, char** argv)
 #endif
         }
     }
+*/
 
     std::string response = "";
 
