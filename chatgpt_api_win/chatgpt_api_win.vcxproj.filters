@@ -18,12 +18,12 @@
     <ClCompile Include="..\chatgpt_api_lnx\main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\chatgpt_api_lnx\chatgptrest_api.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\chatgpt_api_lnx\chatgptrest_api.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\chatgpt_api_lnx\chatgptcpprest.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

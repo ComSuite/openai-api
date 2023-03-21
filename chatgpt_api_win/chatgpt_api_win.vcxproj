@@ -19,10 +19,10 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\chatgpt_api_lnx\chatgptrest_api.cpp" />
     <ClCompile Include="..\chatgpt_api_lnx\main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\chatgpt_api_lnx\chatgptcpprest.h" />
     <ClInclude Include="..\chatgpt_api_lnx\chatgptrest_api.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
@@ -78,8 +78,8 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <ExternalIncludePath>\opencv\include;$(ExternalIncludePath)</ExternalIncludePath>
-    <LibraryPath>\opencv\lib;$(CUDA_PATH)\lib\x64;$(CPPRESTSDK_64_PATH)\lib;$(LibraryPath)</LibraryPath>
+    <ExternalIncludePath>$(OPENCV_PATH)\include;$(ExternalIncludePath)</ExternalIncludePath>
+    <LibraryPath>$(OPENCV_PATH)\lib;$(CUDA_PATH)\lib\x64;$(CPPRESTSDK_64_PATH)\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -115,7 +115,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;_CRT_SECURE_NO_WARNINGS;_SILENCE_ALL_CXX17_DEPRECATION_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <LanguageStandard>stdcpplatest</LanguageStandard>
+      <LanguageStandard>stdcpp17</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
     </ClCompile>
