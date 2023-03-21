@@ -26,5 +26,8 @@
     <ClInclude Include="..\chatgpt_api_lnx\chatgptcpprest.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\chatgpt_api_lnx\chstgptcppcurl.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

@@ -24,6 +24,7 @@
   <ItemGroup>
     <ClInclude Include="..\chatgpt_api_lnx\chatgptcpprest.h" />
     <ClInclude Include="..\chatgpt_api_lnx\chatgptrest_api.h" />
+    <ClInclude Include="..\chatgpt_api_lnx\chstgptcppcurl.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

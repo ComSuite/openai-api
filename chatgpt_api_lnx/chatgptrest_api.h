@@ -10,10 +10,10 @@
 #include <string_view>
 #include <list>
 #include <codecvt>
-#include <cpprest/http_client.h>
-#include "chatgptcpprest.h"
+#include <cpprest/json.h>
 #include <opencv2/core.hpp>
 #include <opencv2/imgcodecs.hpp>
+#include "stdstrmacro.h"
 
 //https://platform.openai.com/docs/api-reference/completions/create
 
@@ -31,17 +31,6 @@ namespace cs
 		std::string object = "";
 		std::string owned_by = "";
 #endif
-	};
-
-	class chatgptcppcurl
-	{
-	public:
-		virtual ~chatgptcppcurl() = default;
-		bool connect() const { return false; };
-		bool get() const { return false; };
-		bool post() const { return false; };
-	private:
-		std::shared_ptr<web::http::client::http_client> client = nullptr;
 	};
 
 	template <typename T>
@@ -210,7 +199,7 @@ namespace cs
 	private:
 		bool load_image(std::string_view url, cv::Mat& image) const
 		{
-			std::shared_ptr<T> clt = std::make_shared<T>();
+			std::unique_ptr<T> clt = std::make_unique<T>();
 			if (clt == nullptr)
 				return false;
 
@@ -236,8 +225,6 @@ namespace cs
 		std::shared_ptr<T> client = std::make_shared<T>(); //FROM_STD_STR(openai_endpoint)
 
 		std::string model = "text-davinci-003";
-		//std::string api_key = "";
-		//std::string org_id = "";
 		uint32_t max_tokens = 4000;
 		double temperature = 0; //from 0 to 2
 		double frequency_penalty = 0.2; //from -2 to 2

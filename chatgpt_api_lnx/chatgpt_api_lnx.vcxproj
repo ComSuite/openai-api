@@ -88,6 +88,8 @@
   <ItemGroup>
     <ClInclude Include="chatgptcpprest.h" />
     <ClInclude Include="chatgptrest_api.h" />
+    <ClInclude Include="chstgptcppcurl.h" />
+    <ClInclude Include="stdstrmacro.h" />
   </ItemGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <Link>

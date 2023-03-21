@@ -1,4 +1,5 @@
 #include <iostream>
+#include "chatgptcpprest.h"
 #include "chatgptrest_api.h"
 #include <opencv2/highgui.hpp>
 #if !defined _WIN32 && !defined _WIN64
