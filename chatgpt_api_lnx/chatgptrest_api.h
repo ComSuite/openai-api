@@ -16,7 +16,6 @@
 #include <opencv2/imgcodecs.hpp>
 
 //https://platform.openai.com/docs/api-reference/completions/create
-//https://github.com/microsoft/cpprestsdk
 
 namespace cs
 {
